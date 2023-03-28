@@ -2393,7 +2393,8 @@ static float nvg__quantize(float a, float d)
 
 static float nvg__getFontScale(NVGstate* state)
 {
-	return nvg__minf(nvg__quantize(nvg__getAverageScale(state->xform), 0.01f), 4.0f);
+    return 2; // FIXME: Replaced with constant cause works unstable
+//	return nvg__minf(nvg__quantize(nvg__getAverageScale(state->xform), 0.01f), 4.0f);
 }
 
 static void nvg__flushTextTexture(NVGcontext* ctx)
@@ -2899,8 +2900,10 @@ void nvgTextBoxBounds(NVGcontext* ctx, float x, float y, float breakRowWidth, co
 				dx = breakRowWidth*0.5f - row->width*0.5f;
 			else if (haling & NVG_ALIGN_RIGHT)
 				dx = breakRowWidth - row->width;
-			rminx = x + row->minx + dx;
-			rmaxx = x + row->maxx + dx;
+//			rminx = x + row->minx + dx;
+            rminx = 0 + dx;
+//			rmaxx = x + row->maxx + dx;
+            rmaxx = x + row->width + dx;
 			minx = nvg__minf(minx, rminx);
 			maxx = nvg__maxf(maxx, rmaxx);
 			// Vertical bounds.
